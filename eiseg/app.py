@@ -1479,6 +1479,10 @@ class APP_EISeg(QMainWindow, Ui_EISeg):
     def undoAll(self):
         if not self.controller or self.controller.image is None:
             return
+        # 清空多边形标注，删掉图片
+        for p in self.scene.polygon_items[::-1]:
+            p.remove()
+        self.scene.polygon_items = []
         self.controller.resetLastObject()
         self.updateImage()
         self.setClean()
